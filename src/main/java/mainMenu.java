@@ -25,10 +25,12 @@ public class mainMenu {
                 spendingMoni = false;
             }
             else if (userInput.equals("new")){
+                System.out.println("Enter amount of expenditure: ");
                 String amount = in.nextLine();
+                System.out.println("Enter date of expenditure (MM/DD): ");
+                String date = in.nextLine();
 
-
-                ss.addEntry();
+                ss.addEntry(amount, date);
             }
             else if(userInput.equals("view all")) {
                 System.out.println(ss.getAllEntries());

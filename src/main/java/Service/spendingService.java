@@ -15,9 +15,11 @@ public class spendingService {
         return sr.getAllEntries();
     }
     public List<Entry> getEntriesByDate(){
-        return sr.getEntriesByDate(date);
+       // return sr.getEntriesByDate(date);
+        return null;
     }
-    public void addEntry(String title) {
+    public void addEntry(String title, String date) {
+
         sr.addEntry();
     }
 
