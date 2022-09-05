@@ -14,13 +14,14 @@ public class spendingService {
     public List<Entry> getAllEntries(){
         return sr.getAllEntries();
     }
-    public List<Entry> getEntriesByDate(){
-       // return sr.getEntriesByDate(date);
-        return null;
-    }
-    public void addEntry(String title, String date) {
+    public Entry getEntriesByDate(String date){
+       return sr.getEntriesByDate(date);
 
-        sr.addEntry();
+    }
+    public void addEntry(String amount, String date) {
+
+        Entry newEntry = new Entry(amount, date);
+        sr.addEntry(newEntry);
     }
 
 }

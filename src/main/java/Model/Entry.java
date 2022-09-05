@@ -15,8 +15,8 @@ public class Entry
     public String toString()
     {
         return "Entry: " +
-                "amount='" + amount + '\'' +
-                ", date='" + date + '\'';
+                "amount= " + amount +
+                ", date= " + date + "\n";
     }
 
     public String getAmount()

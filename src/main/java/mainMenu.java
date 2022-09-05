@@ -7,37 +7,35 @@ import java.util.Scanner;
 public class mainMenu {
 
     public static void main(String[] args) {
-        /*
-        System.out.println("Gibe da moni: ");
-        Scanner in = new Scanner(System.in);
-        String moni = in.nextLine();
-        System.out.println("Thank u for tha moni, " + moni); */
+        //  Connection conn = connectionUtil.getConnection();
 
-      //  Connection conn = connectionUtil.getConnection();
-        Scanner in = new Scanner(System.in);
 
         boolean spendingMoni = true;
         spendingService ss = new spendingService();
         while(spendingMoni) {
-            System.out.println("Select an option:\n1. new\n2. view\n3. quit");
-            String userInput = in.nextLine();
-            if(userInput.equals("quit")) {
+            System.out.println("Select an option:\n1. new\n2. view all\n3. view by date\n4. quit");
+            Scanner userInput = new Scanner(System.in);
+            String line = userInput.nextLine();
+            if(line.equals("quit")) {
                 spendingMoni = false;
             }
-            else if (userInput.equals("new")){
+            else if (line.equals("new")){
                 System.out.println("Enter amount of expenditure: ");
-                String amount = in.nextLine();
-                System.out.println("Enter date of expenditure (MM/DD): ");
-                String date = in.nextLine();
+                String amount = userInput.nextLine();
+                System.out.println("Enter date of expenditure (MMDD): ");
+                String date = userInput.nextLine();
 
                 ss.addEntry(amount, date);
             }
-            else if(userInput.equals("view all")) {
+            else if(line.equals("view all")) {
                 System.out.println(ss.getAllEntries());
             }
-            else if (userInput.equals("view by date")) {
-                String date;
-                System.out.println(ss.getEntriesByDate());
+            else if (line.equals("view by date")) {
+                System.out.println("Enter date of Entry (MMDD): ");
+
+
+                String date = userInput.nextLine();
+                System.out.println(ss.getEntriesByDate(date));
             }
             else {
                 System.out.println("Command not found. Please type one of the commands below.");

@@ -3,10 +3,7 @@ package DAO;
 import Model.Entry;
 import util.connectionUtil;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,13 +37,41 @@ public class spendingRepository
         return allEntries;
 
     }
-    public List<Entry> getEntriesByDate(String date)
-    {
-        return null;
-    }
-    public void addEntry()
+    public Entry getEntriesByDate(String date)
     {
 
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(":Select * from Entry where date = ?");
+
+            statement.setString(1, date);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next())
+            {
+                Entry p = new Entry(rs.getString("title"), rs.getString("date"));
+                return p;
+            }
+
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+    public void addEntry(Entry p)
+    {
+        List<Entry> entries = new ArrayList<>();
+        try{
+            PreparedStatement statement = conn.prepareStatement("insert into Entry(amount, date)" + "values(?, ?)");
+            statement.setString(1, p.getAmount());
+            statement.setString(2, p.getDate());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
