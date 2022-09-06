@@ -25,7 +25,7 @@ public class spendingRepository
 
             while(rs.next())
             {
-                Entry loadedEntry = new Entry(rs.getString("amount"), rs.getString("date"));
+                Entry loadedEntry = new Entry(rs.getString("amount"), rs.getString("date"), rs.getInt("category"));
                 allEntries.add(loadedEntry);
             }
         }
@@ -48,7 +48,7 @@ public class spendingRepository
             ResultSet rs = statement.executeQuery();
             while(rs.next())
             {
-                Entry p = new Entry(rs.getString("amount"), rs.getString("date"));
+                Entry p = new Entry(rs.getString("amount"), rs.getString("date"), rs.getInt("category"));
                 return p;
             }
 
@@ -64,9 +64,10 @@ public class spendingRepository
     {
         List<Entry> entries = new ArrayList<>();
         try{
-            PreparedStatement statement = conn.prepareStatement("insert into Entry(amount, date)" + "values(?, ?)");
+            PreparedStatement statement = conn.prepareStatement("insert into Entry(amount, date, category)" + "values(?, ?, ?)");
             statement.setString(1, p.getAmount());
             statement.setString(2, p.getDate());
+            statement.setInt(3, p.getCategory());
             statement.executeUpdate();
 
         } catch (SQLException e) {

@@ -5,10 +5,13 @@ public class Entry
     public String amount;
     public String date;
 
-    public Entry(String amount, String date)
+    public int category;
+
+    public Entry(String amount, String date, int category)
     {
         this.amount = amount;
         this.date = date;
+        this.category = category;
     }
 
     @Override
@@ -16,7 +19,7 @@ public class Entry
     {
         return "Entry: " +
                 "amount= " + amount +
-                ", date= " + date + "\n";
+                ", date= " + date + ", category= " + category + "\n";
     }
 
     public String getAmount()
@@ -37,5 +40,14 @@ public class Entry
     public void setDate(String date)
     {
         this.date = date;
+    }
+
+    public int getCategory()
+    {
+        return category;
+    }
+
+    public void setCategory(int category){
+        this.category = category;
     }
 }

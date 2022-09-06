@@ -24,8 +24,10 @@ public class mainMenu {
                 String amount = userInput.nextLine();
                 System.out.println("Enter date of expenditure (MMDD): ");
                 String date = userInput.nextLine();
+                System.out.println("Enter category number: ");
+                int category = userInput.nextInt();
 
-                ss.addEntry(amount, date);
+                ss.addEntry(amount, date, category);
             }
             else if(line.equals("view all")) {
                 System.out.println(ss.getAllEntries());

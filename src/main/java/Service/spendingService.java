@@ -19,9 +19,9 @@ public class spendingService {
         return sr.getEntriesByDate(date);
 
     }
-    public void addEntry(String amount, String date) {
+    public void addEntry(String amount, String date, int category) {
 
-        Entry newEntry = new Entry(amount, date);
+        Entry newEntry = new Entry(amount, date, category);
         sr.addEntry(newEntry);
     }
 
