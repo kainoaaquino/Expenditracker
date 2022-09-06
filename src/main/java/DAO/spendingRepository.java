@@ -42,20 +42,20 @@ public class spendingRepository
 
         try
         {
-            PreparedStatement statement = conn.prepareStatement(":Select * from Entry where date = ?");
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM Entry WHERE date = ?");
 
             statement.setString(1, date);
             ResultSet rs = statement.executeQuery();
             while(rs.next())
             {
-                Entry p = new Entry(rs.getString("title"), rs.getString("date"));
+                Entry p = new Entry(rs.getString("amount"), rs.getString("date"));
                 return p;
             }
 
         }
         catch(SQLException e)
         {
-            e.printStackTrace();
+
         }
 
         return null;

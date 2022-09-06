@@ -15,7 +15,8 @@ public class spendingService {
         return sr.getAllEntries();
     }
     public Entry getEntriesByDate(String date){
-       return sr.getEntriesByDate(date);
+
+        return sr.getEntriesByDate(date);
 
     }
     public void addEntry(String amount, String date) {
