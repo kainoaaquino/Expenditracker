@@ -1,6 +1,6 @@
 import Service.spendingService;
 import util.connectionUtil;
-
+import Service.categoryService;
 import java.sql.Connection;
 import java.util.Scanner;
 
@@ -13,7 +13,7 @@ public class mainMenu {
         boolean spendingMoni = true;
         spendingService ss = new spendingService();
         while(spendingMoni) {
-            System.out.println("Select an option:\n1. new\n2. view all\n3. view by date\n4. quit");
+            System.out.println("Select an option:\n1. new\n2. view all\n3. view by date\n4. view by category name\n5. quit");
             Scanner userInput = new Scanner(System.in);
             String line = userInput.nextLine();
             if(line.equals("quit")) {
@@ -38,6 +38,19 @@ public class mainMenu {
 
                 String date = userInput.nextLine();
                 System.out.println(ss.getEntriesByDate(date));
+            }
+            else if(line.equals("view by category id")) {
+                System.out.println("Enter category id");
+
+                int id = userInput.nextInt();
+                System.out.println(ss.getEntriesByCategoryID(id));
+            }
+            else if(line.equals("view by category name"))
+            {
+                System.out.println("Enter category name:");
+                String name = userInput.nextLine();
+                System.out.println(ss.getEntriesByCategoryName(name));
+
             }
             else {
                 System.out.println("Command not found. Please type one of the commands below.");

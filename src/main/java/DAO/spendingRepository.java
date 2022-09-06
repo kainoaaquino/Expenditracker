@@ -60,6 +60,34 @@ public class spendingRepository
 
         return null;
     }
+
+    public List<Entry> getEntriesByCategoryID(int category)
+    {
+        List<Entry> entries = new ArrayList<>();
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM entry WHERE category = ? ");
+            statement.setInt(1, category);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next())
+            {
+               Entry loadedentry = new Entry(rs.getString("amount"), rs.getString("date"), rs.getInt("category"));
+               entries.add(loadedentry);
+
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        if(entries.size() == 0)
+        {
+            return entries;
+        }
+        else {
+            return entries;
+        }
+    }
     public void addEntry(Entry p)
     {
         List<Entry> entries = new ArrayList<>();
