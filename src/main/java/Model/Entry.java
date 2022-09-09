@@ -7,6 +7,10 @@ public class Entry
 
     public int category;
 
+    public Entry(){
+
+    }
+
     public Entry(String amount, String date, int category)
     {
         this.amount = amount;
@@ -17,7 +21,7 @@ public class Entry
     @Override
     public String toString()
     {
-        return "Entry: " +
+        return " Entry: " +
                 "amount= " + amount +
                 ", date= " + date + ", category= " + category + "\n";
     }

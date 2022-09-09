@@ -27,6 +27,7 @@ public class categoryRepository
         {
             e.printStackTrace();
         }
+        System.out.println("Category not found");
         return -1;
     }
 }

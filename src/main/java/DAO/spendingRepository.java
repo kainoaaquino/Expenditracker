@@ -57,7 +57,7 @@ public class spendingRepository
         {
 
         }
-
+        System.out.println("No entries exist with that date.");
         return null;
     }
 
