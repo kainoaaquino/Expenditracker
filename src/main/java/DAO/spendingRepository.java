@@ -25,7 +25,7 @@ public class spendingRepository
 
             while(rs.next())
             {
-                Entry loadedEntry = new Entry(rs.getString("amount"), rs.getString("date"), rs.getInt("category"));
+                Entry loadedEntry = new Entry(rs.getString("amount"), rs.getString("entryDate"), rs.getInt("category"));
                 allEntries.add(loadedEntry);
             }
         }
@@ -37,18 +37,18 @@ public class spendingRepository
         return allEntries;
 
     }
-    public Entry getEntriesByDate(String date)
+    public Entry getEntriesByDate(String entryDate)
     {
 
         try
         {
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM Entry WHERE date = ?");
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM Entry WHERE entryDate = ?");
 
-            statement.setString(1, date);
+            statement.setString(1, entryDate);
             ResultSet rs = statement.executeQuery();
             while(rs.next())
             {
-                Entry p = new Entry(rs.getString("amount"), rs.getString("date"), rs.getInt("category"));
+                Entry p = new Entry(rs.getString("amount"), rs.getString("entryDate"), rs.getInt("category"));
                 return p;
             }
 
@@ -58,6 +58,29 @@ public class spendingRepository
 
         }
         System.out.println("No entries exist with that date.");
+        return null;
+    }
+    public Entry getEntriesByMonth(String entryDate)
+    {
+
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement("SELECT *  FROM Entry WHERE MONTH(entryDate) = ?");
+
+            statement.setString(1, (entryDate));
+            ResultSet rs = statement.executeQuery();
+            while(rs.next())
+            {
+                Entry p = new Entry(rs.getString("amount"), rs.getString("entryDate"), rs.getInt("category"));
+                return p;
+            }
+
+        }
+        catch(SQLException e)
+        {
+
+        }
+        System.out.println("No entries exist with that month.");
         return null;
     }
 
@@ -71,7 +94,7 @@ public class spendingRepository
             ResultSet rs = statement.executeQuery();
             while(rs.next())
             {
-               Entry loadedentry = new Entry(rs.getString("amount"), rs.getString("date"), rs.getInt("category"));
+               Entry loadedentry = new Entry(rs.getString("amount"), rs.getString("entryDate"), rs.getInt("category"));
                entries.add(loadedentry);
 
             }
@@ -92,9 +115,9 @@ public class spendingRepository
     {
         List<Entry> entries = new ArrayList<>();
         try{
-            PreparedStatement statement = conn.prepareStatement("insert into Entry(amount, date, category)" + "values(?, ?, ?)");
+            PreparedStatement statement = conn.prepareStatement("insert into Entry(amount, entryDate, category)" + "values(?, ?, ?)");
             statement.setString(1, p.getAmount());
-            statement.setString(2, p.getDate());
+            statement.setString(2, p.getentryDate());
             statement.setInt(3, p.getCategory());
             statement.executeUpdate();
 

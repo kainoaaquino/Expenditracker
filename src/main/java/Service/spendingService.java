@@ -16,18 +16,21 @@ public class spendingService {
     public List<Entry> getAllEntries(){
         return sr.getAllEntries();
     }
-    public Entry getEntriesByDate(String date){
+    public Entry getEntriesByDate(String entryDate){
 
-        return sr.getEntriesByDate(date);
+        return sr.getEntriesByDate(entryDate);
 
+    }
+    public Entry getEntriesByMonth(String entryDate){
+        return getEntriesByMonth(entryDate);
     }
     public List<Entry> getEntriesByCategoryID(int cat_id)
     {
         return sr.getEntriesByCategoryID(cat_id);
     }
-    public void addEntry(String amount, String date, int category) {
+    public void addEntry(String amount, String entryDate, int category) {
 
-        Entry newEntry = new Entry(amount, date, category);
+        Entry newEntry = new Entry(amount, entryDate, category);
         sr.addEntry(newEntry);
     }
 

@@ -3,7 +3,7 @@ package Model;
 public class Entry
 {
     public String amount;
-    public String date;
+    public String entryDate;
 
     public int category;
 
@@ -11,19 +11,17 @@ public class Entry
 
     }
 
-    public Entry(String amount, String date, int category)
+    public Entry(String amount, String entryDate, int category)
     {
         this.amount = amount;
-        this.date = date;
+        this.entryDate = entryDate;
         this.category = category;
     }
 
     @Override
     public String toString()
     {
-        return " Entry: " +
-                "amount= " + amount +
-                ", date= " + date + ", category= " + category + "\n";
+        return amount + ": entryDate " + entryDate + category + '\n';
     }
 
     public String getAmount()
@@ -36,14 +34,14 @@ public class Entry
         this.amount = amount;
     }
 
-    public String getDate()
+    public String getentryDate()
     {
-        return date;
+        return entryDate;
     }
 
-    public void setDate(String date)
+    public void setentryDate(String entryDate)
     {
-        this.date = date;
+        this.entryDate = entryDate;
     }
 
     public int getCategory()
