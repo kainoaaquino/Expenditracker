@@ -8,10 +8,12 @@ import java.util.List;
 
 public class spendingService {
     spendingRepository sr;
+    usersService us;
     categoryService cs;
     public spendingService(){
         cs = new categoryService();
         sr = new spendingRepository();
+        us = new usersService();
     }
     public List<Entry> getAllEntries(){
         return sr.getAllEntries();
@@ -28,9 +30,9 @@ public class spendingService {
     {
         return sr.getEntriesByCategoryID(cat_id);
     }
-    public void addEntry(String amount, String entryDate, int category) {
+    public void addEntry(String amount, String entryDate, int category, int entryuserid) {
 
-        Entry newEntry = new Entry(amount, entryDate, category);
+        Entry newEntry = new Entry(amount, entryDate, category, entryuserid);
         sr.addEntry(newEntry);
     }
 
@@ -39,5 +41,18 @@ public class spendingService {
         return sr.getEntriesByCategoryID(cat_id);
 
     }
+    public List<Entry> getEntriesByUserName(String name){
+        int user_id = us.getUserIdFromName(name);
+        return sr.getEntriesByUserId(user_id);
 
+    }
+
+    public List<Entry> getNecessaryUserEntriesByUserName(String name){
+        int user_id = us.getUserIdFromName(name);
+        return sr.getNecessaryUserEntriesByUserId(user_id);
+    }
+    public List<Entry> getNotNecessaryUserEntriesByUserName(String name){
+        int user_id = us.getUserIdFromName(name);
+        return sr.getNotNecessaryUserEntriesByUserId(user_id);
+    }
 }

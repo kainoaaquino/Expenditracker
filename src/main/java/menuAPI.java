@@ -43,7 +43,7 @@ public class menuAPI {
         app.post("entries", ctx -> {
             ObjectMapper mapper = new ObjectMapper();
             Entry requestEntry = mapper.readValue(ctx.body(), Entry.class);
-            ss.addEntry(requestEntry.getAmount(), requestEntry.getentryDate(), requestEntry.getCategory());
+            ss.addEntry(requestEntry.getAmount(), requestEntry.getentryDate(), requestEntry.getCategory(), requestEntry.getentryuserid());
         });
 
         app.get("/users", ctx ->
@@ -55,8 +55,28 @@ public class menuAPI {
         app.post("users", ctx -> {
             ObjectMapper mapper = new ObjectMapper();
             Users requestUsers = mapper.readValue(ctx.body(), Users.class);
-            us.addUser(requestUsers.getUsername(), requestUsers.getPassword());
+            us.addUser(requestUsers.getUser_id(), requestUsers.getUsername(), requestUsers.getPassword());
         });
+
+        app.get("/users/username/{username}", ctx ->
+        {
+            ctx.json(ss.getEntriesByUserName(ctx.pathParam("username")));
+
+        }
+        );
+
+        app.get("/users/necessary/{username}", ctx ->
+        {
+            ctx.json(ss.getNecessaryUserEntriesByUserName (ctx.pathParam("username")));
+
+        });
+
+        app.get("/users/notnecessary/{username}", ctx ->
+        {
+            ctx.json(ss.getNotNecessaryUserEntriesByUserName (ctx.pathParam("username")));
+
+        });
+
 
 
     }

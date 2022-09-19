@@ -4,18 +4,16 @@ import Model.Entry;
 import Model.Users;
 import org.eclipse.jetty.server.Authentication;
 import util.connectionUtil;
-
+import java.sql.PreparedStatement;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class usersRepository {
 
-    Connection conn;
-    public usersRepository()
-    {
-        conn = connectionUtil.getConnection();
-    }
+   Connection conn = connectionUtil.getConnection();
 
     public List<Users> getAllUsers()
     {
@@ -27,7 +25,7 @@ public class usersRepository {
 
             while(rs.next())
             {
-                Users loadedUsers = new Users(rs.getString("username"), rs.getString("password"));
+                Users loadedUsers = new Users(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"));
                 allUsers.add(loadedUsers);
             }
         }
@@ -51,6 +49,27 @@ public class usersRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getUserIdFromName(String name)
+    {
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM users WHERE username = ? ");
+            statement.setString(1, name);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next())
+            {
+                int id = rs.getInt("user_id");
+                return id;
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        System.out.println("username not found");
+        return -1;
     }
 
 }

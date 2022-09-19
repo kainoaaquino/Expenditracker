@@ -25,7 +25,7 @@ public class spendingRepository
 
             while(rs.next())
             {
-                Entry loadedEntry = new Entry(rs.getString("amount"), rs.getString("entryDate"), rs.getInt("category"));
+                Entry loadedEntry = new Entry(rs.getString("amount"), rs.getString("entryDate"), rs.getInt("category"), rs.getInt("entryuserid"));
                 allEntries.add(loadedEntry);
             }
         }
@@ -48,7 +48,7 @@ public class spendingRepository
             ResultSet rs = statement.executeQuery();
             while(rs.next())
             {
-                Entry p = new Entry(rs.getString("amount"), rs.getString("entryDate"), rs.getInt("category"));
+                Entry p = new Entry(rs.getString("amount"), rs.getString("entryDate"), rs.getInt("category"), rs.getInt("entryuserid"));
                 return p;
             }
 
@@ -71,7 +71,7 @@ public class spendingRepository
             ResultSet rs = statement.executeQuery();
             while(rs.next())
             {
-                Entry p = new Entry(rs.getString("amount"), rs.getString("entryDate"), rs.getInt("category"));
+                Entry p = new Entry(rs.getString("amount"), rs.getString("entryDate"), rs.getInt("category"), rs.getInt("entryuserid"));
                 return p;
             }
 
@@ -94,8 +94,95 @@ public class spendingRepository
             ResultSet rs = statement.executeQuery();
             while(rs.next())
             {
-               Entry loadedentry = new Entry(rs.getString("amount"), rs.getString("entryDate"), rs.getInt("category"));
+               Entry loadedentry = new Entry(rs.getString("amount"), rs.getString("entryDate"), rs.getInt("category"), rs.getInt("entryuserid"));
                entries.add(loadedentry);
+
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        if(entries.size() == 0)
+        {
+            return entries;
+        }
+        else {
+            return entries;
+        }
+    }
+
+    public List<Entry> getEntriesByUserId(int entryuserid)
+    {
+        List<Entry> entries = new ArrayList<>();
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM entry WHERE entryuserid = ? ");
+            statement.setInt(1, entryuserid);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next())
+            {
+                Entry loadedentry = new Entry(rs.getString("amount"), rs.getString("entryDate"), rs.getInt("category"), rs.getInt("entryuserid"));
+                entries.add(loadedentry);
+
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        if(entries.size() == 0)
+        {
+            return entries;
+        }
+        else {
+            return entries;
+        }
+    }
+
+    public List<Entry> getNecessaryUserEntriesByUserId(int entryuserid)
+    {
+        List<Entry> entries = new ArrayList<>();
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM entry WHERE category = 1 AND entryuserid = ?");
+
+            statement.setInt(1, entryuserid);
+
+            ResultSet rs = statement.executeQuery();
+            while(rs.next())
+            {
+                Entry loadedentry = new Entry(rs.getString("amount"), rs.getString("entryDate"), rs.getInt("category"), rs.getInt("entryuserid"));
+                entries.add(loadedentry);
+
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        if(entries.size() == 0)
+        {
+            return entries;
+        }
+        else {
+            return entries;
+        }
+    }
+    public List<Entry> getNotNecessaryUserEntriesByUserId(int entryuserid)
+    {
+        List<Entry> entries = new ArrayList<>();
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM entry WHERE category = 2 AND entryuserid = ?");
+
+            statement.setInt(1, entryuserid);
+
+            ResultSet rs = statement.executeQuery();
+            while(rs.next())
+            {
+                Entry loadedentry = new Entry(rs.getString("amount"), rs.getString("entryDate"), rs.getInt("category"), rs.getInt("entryuserid"));
+                entries.add(loadedentry);
 
             }
         }
@@ -115,10 +202,11 @@ public class spendingRepository
     {
         List<Entry> entries = new ArrayList<>();
         try{
-            PreparedStatement statement = conn.prepareStatement("insert into Entry(amount, entryDate, category)" + "values(?, ?, ?)");
+            PreparedStatement statement = conn.prepareStatement("insert into Entry(amount, entryDate, category, entryuserid)" + "values(?, ?, ?, ?)");
             statement.setString(1, p.getAmount());
             statement.setString(2, p.getentryDate());
             statement.setInt(3, p.getCategory());
+            statement.setInt(4, p.getentryuserid());
             statement.executeUpdate();
 
         } catch (SQLException e) {

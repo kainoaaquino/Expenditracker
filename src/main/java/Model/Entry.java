@@ -6,16 +6,18 @@ public class Entry
     public String entryDate;
 
     public int category;
+    public int entryuserid;
 
     public Entry(){
 
     }
 
-    public Entry(String amount, String entryDate, int category)
+    public Entry(String amount, String entryDate, int category, int entryuserid)
     {
         this.amount = amount;
         this.entryDate = entryDate;
         this.category = category;
+        this.entryuserid = entryuserid;
     }
 
     @Override
@@ -51,5 +53,13 @@ public class Entry
 
     public void setCategory(int category){
         this.category = category;
+    }
+
+    public int getentryuserid() {
+        return entryuserid;
+    }
+
+    public void setentryuserid(int entryuserid) {
+        this.entryuserid = entryuserid;
     }
 }

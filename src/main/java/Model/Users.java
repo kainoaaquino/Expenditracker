@@ -2,18 +2,28 @@ package Model;
 
 public class Users {
 
+    public int user_id;
     public String username;
     public String password;
+
 
     public Users(){
 
     }
 
 
-    public Users(String username, String password){
-
+    public Users(int user_id, String username, String password){
+        this.user_id = user_id;
         this.username = username;
         this.password = password;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getUsername() {
@@ -34,7 +44,8 @@ public class Users {
     @Override
     public String toString() {
         return "Users{" +
-                "username='" + username + '\'' +
+                "user_id=" + user_id +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
