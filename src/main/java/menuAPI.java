@@ -11,7 +11,7 @@ import io.javalin.core.JavalinConfig;
 import java.sql.SQLException;
 
 public class menuAPI {
-
+    //this is a comment
     public static void main(String args[]) throws SQLException {
         spendingService ss = new spendingService();
         categoryService cs = new categoryService();
